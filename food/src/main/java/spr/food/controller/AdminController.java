@@ -8,6 +8,7 @@ import spr.food.service.AdminService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/admins")
 public class AdminController {

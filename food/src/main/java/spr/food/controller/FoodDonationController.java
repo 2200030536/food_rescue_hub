@@ -8,6 +8,8 @@ import spr.food.service.FoodDonationService;
 
 import java.util.List;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/donations")
 public class FoodDonationController{

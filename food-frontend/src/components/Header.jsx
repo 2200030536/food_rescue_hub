@@ -1,31 +1,32 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div>
-      <header>
-        <nav className="navbar navbar-dark bg-dark">
-          <a class="navbar-brand" href="http://www.javaguides.net">
-            Food Rescue Hub
-          </a>
-          {/* <Link to="/" className='navbar-brand'>
-                
-                </Link>
-                <ul className='navbar-nav ml-auto'>
-                <li className='nav-item'>
-                <Link to="/about" className='nav-link'>
-                        About
-                        </Link>
-                </li>
-                <li className='nav-item'>
-                <Link to="/contact" className='nav-link'>
-                        Contact
-                        </Link>
-                </li>
-                </ul> */}
-        </nav>
-      </header>
-    </div>
+    <nav style={{ backgroundColor: '#4CAF50', padding: '1em 0' }}>
+      <ul style={{ listStyle: 'none', textAlign: 'center', margin: 0, padding: 0 }}>
+        <li style={{ display: 'inline-block', margin: '0 15px' }}>
+          <Link to="/home" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
+            Home
+          </Link>
+        </li>
+        <li style={{ display: 'inline-block', margin: '0 15px' }}>
+          <Link to="/about" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
+            About
+          </Link>
+        </li>
+        <li style={{ display: 'inline-block', margin: '0 15px' }}>
+          <Link to="/donations" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
+            Donation Post
+          </Link>
+        </li>
+        <li style={{ display: 'inline-block', margin: '0 15px' }}>
+          <Link to="/login" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
+            Login
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

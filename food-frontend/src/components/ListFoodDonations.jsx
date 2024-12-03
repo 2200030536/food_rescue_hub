@@ -1,87 +1,95 @@
 import React, { useEffect, useState } from 'react';
 import { listDonations } from '../services/DonationService';
 import { useNavigate } from 'react-router-dom';
+
 const ListFoodDonations = () => {
-  // Example data
-  //   const donations = [
-  //     {
-  //       id: 1,
-  //       name: "Ram",
-  //       address: "Address 1",
-  //       phone: "1234567890",
-  //       foodType: "Vegetarian",
-  //       quantity: 10,
-  //       status: "Pending",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Shyam",
-  //       address: "Address 2",
-  //       phone: "9876543210",
-  //       foodType: "Non-Vegetarian",
-  //       quantity: 15,
-  //       status: "Completed",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Sita",
-  //       address: "Address 3",
-  //       phone: "1122334455",
-  //       foodType: "Mixed",
-  //       quantity: 8,
-  //       status: "In Progress",
-  //     },
-  //   ];
-
-  // State to hold the filtered donations
   const [donations, setDonations] = useState([]);
-  const navigator = useNavigate();
+  const [filteredDonations, setFilteredDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [search, setSearch] = useState('');
+
+  const navigate = useNavigate();
+
   useEffect(() => {
-    listDonations().then((response) => {
-      setDonations(response.data);
-    }).catch((error) => {
-      console.log(error);
+    listDonations()
+      .then((response) => {
+        setDonations(response.data);
+        setFilteredDonations(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError('Failed to fetch donations. Please try again later.');
+        setLoading(false);
+      });
+  }, []);
 
-    })
-  }, [])
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearch(query);
+    const filtered = donations.filter(
+      (donation) =>
+        donation.donorId.toString().includes(query) ||
+        donation.address.toLowerCase().includes(query)
+    );
+    setFilteredDonations(filtered);
+  };
 
-  function addDonations() {
-    navigator('/addDonations');
+  const addDonations = () => {
+    navigate('/addDonations');
+  };
+
+  if (loading) {
+    return <div className="text-center mt-5">Loading donations...</div>;
   }
 
-
+  if (error) {
+    return <div className="text-center mt-5 text-danger">{error}</div>;
+  }
 
   return (
     <div className="container mt-4">
       <h2 className="text-center">List of Food Donations</h2>
-      <button type="button" class="btn btn-primary" onClick={addDonations}>Post Donation</button>
-      <table className="table table-bordered table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th>DONOR ID</th>
-            {/* <th>Name</th> */}
-            <th>Address</th>
-            <th>Phone</th>
-            <th>POST DATE</th>
-            <th>Quantity</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {donations.map((donation) => (
-            <tr key={donation.id}>
-              <td>{donation.donorId}</td>
-              {/* <td>{donation.name}</td> */}
-              <td>{donation.address}</td>
-              <td>{donation.alternateContact}</td>
-              <td>{donation.postDate}</td>
-              <td>{donation.quantity}</td>
-              <td>{donation.availabilityStatus ? 'Available' : 'Not Available'}</td>
-
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <button type="button" className="btn btn-primary" onClick={addDonations}>
+          Post Donation
+        </button>
+        <input
+          type="text"
+          className="form-control w-50"
+          placeholder="Search by Donor ID or Address"
+          value={search}
+          onChange={handleSearch}
+        />
+      </div>
+      {filteredDonations.length > 0 ? (
+        <table className="table table-bordered table-striped">
+          <thead className="thead-dark">
+            <tr>
+              <th>DONOR ID</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>POST DATE</th>
+              <th>Quantity</th>
+              <th>Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredDonations.map((donation) => (
+              <tr key={donation.id}>
+                <td>{donation.donorId}</td>
+                <td>{donation.address}</td>
+                <td>{donation.alternateContact}</td>
+                <td>{donation.postDate}</td>
+                <td>{donation.quantity}</td>
+                <td>{donation.availabilityStatus ? 'Available' : 'Not Available'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="text-center">No donations found matching your search criteria.</div>
+      )}
     </div>
   );
 };

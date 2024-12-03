@@ -7,7 +7,10 @@ import spr.food.model.User;
 import spr.food.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
+
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -23,9 +26,12 @@ public class UserController {
 
     // Get a user by ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.of(userService.getUserById(id));
-    }
+public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    Optional<User> user = userService.getUserById(id);
+    return user.map(ResponseEntity::ok) // If present, return HTTP 200 OK with the user data
+               .orElseGet(() -> ResponseEntity.notFound().build()); // If not found, return HTTP 404 Not Found
+}
+
 
     // Get all users
     @GetMapping

@@ -10,6 +10,7 @@ import spr.food.model.User;
 import spr.food.service.AdminService;
 import spr.food.service.UserService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -22,17 +23,18 @@ public class AuthController {
 
 
     @PostMapping("/user/login")
-       public ResponseEntity<String> loginUser(@RequestBody User loginRequest) {
-           String email = loginRequest.getEmail();
-           String password = loginRequest.getPassword();
-
-           User user = userService.getUserByEmail(email);
-           if (user != null && user.getPassword().equals(password)) {
-               return ResponseEntity.ok("User login successful for: " + email);
-           }
-           return ResponseEntity.status(401).body("Invalid email or password.");
-       }
-
+    public ResponseEntity<User> loginUser(@RequestBody User loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+    
+        User user = userService.getUserByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            // Return user details including id
+            return ResponseEntity.ok(user);  // Return the whole user object
+        }
+        return ResponseEntity.status(401).body(null); // Return null if credentials are incorrect
+    }
+    
 
     
     @PostMapping("/admin/login")
