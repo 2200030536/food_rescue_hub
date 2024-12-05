@@ -22,6 +22,11 @@ public class FoodDonationController{
     public ResponseEntity<FoodDonation> createDonation(@RequestBody FoodDonation donation) {
         return ResponseEntity.ok(donationService.createDonation(donation));
     }
+    @GetMapping("/donor/{donorId}")
+    public List<FoodDonation> getDonationsByDonorId(@PathVariable Long donorId) {
+        return donationService.getDonationsByDonorId(donorId);
+    }
+    
 
     // Get a donation by ID
     @GetMapping("/{id}")

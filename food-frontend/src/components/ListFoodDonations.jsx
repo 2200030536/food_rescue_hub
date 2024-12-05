@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { listDonations } from '../services/DonationService';
 import { useNavigate } from 'react-router-dom';
+import UserHeader from './UserHeader';
 
 const ListFoodDonations = () => {
   const [donations, setDonations] = useState([]);
@@ -27,10 +28,9 @@ const ListFoodDonations = () => {
   const handleSearch = (e) => {
     const query = e.target.value.toLowerCase();
     setSearch(query);
-    const filtered = donations.filter(
-      (donation) =>
-        donation.donorId.toString().includes(query) ||
-        donation.address.toLowerCase().includes(query)
+    const filtered = donations.filter((donation) =>
+      (donation.donorId?.toString().toLowerCase().includes(query) ||
+      donation.address?.toLowerCase().includes(query))
     );
     setFilteredDonations(filtered);
   };
@@ -48,6 +48,8 @@ const ListFoodDonations = () => {
   }
 
   return (
+    <>
+    <UserHeader/>
     <div className="container mt-4">
       <h2 className="text-center">List of Food Donations</h2>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -60,7 +62,7 @@ const ListFoodDonations = () => {
           placeholder="Search by Donor ID or Address"
           value={search}
           onChange={handleSearch}
-        />
+          />
       </div>
       {filteredDonations.length > 0 ? (
         <table className="table table-bordered table-striped">
@@ -90,7 +92,9 @@ const ListFoodDonations = () => {
       ) : (
         <div className="text-center">No donations found matching your search criteria.</div>
       )}
+
     </div>
+      </>
   );
 };
 

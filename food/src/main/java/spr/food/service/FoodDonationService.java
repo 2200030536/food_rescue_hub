@@ -23,6 +23,11 @@ public class FoodDonationService {
     public Optional<FoodDonation> getDonationById(Long id) {
         return donationRepository.findById(id);
     }
+    
+    public List<FoodDonation> getDonationsByDonorId(Long donorId) {
+        return donationRepository.findByDonorId(donorId);
+    }
+    
 
     // Get All Donations
     public List<FoodDonation> getAllDonations() {

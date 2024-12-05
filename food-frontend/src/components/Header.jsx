@@ -6,7 +6,7 @@ const Header = () => {
     <nav style={{ backgroundColor: '#4CAF50', padding: '1em 0' }}>
       <ul style={{ listStyle: 'none', textAlign: 'center', margin: 0, padding: 0 }}>
         <li style={{ display: 'inline-block', margin: '0 15px' }}>
-          <Link to="/home" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
             Home
           </Link>
         </li>
@@ -15,16 +15,17 @@ const Header = () => {
             About
           </Link>
         </li>
-        <li style={{ display: 'inline-block', margin: '0 15px' }}>
+        {/* <li style={{ display: 'inline-block', margin: '0 15px' }}>
           <Link to="/donations" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
             Donation Post
           </Link>
-        </li>
+        </li> */}
         <li style={{ display: 'inline-block', margin: '0 15px' }}>
           <Link to="/login" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
             Login
           </Link>
         </li>
+        
       </ul>
     </nav>
   );
