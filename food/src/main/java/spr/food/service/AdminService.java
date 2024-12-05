@@ -3,6 +3,7 @@ package spr.food.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spr.food.model.Admin;
+import spr.food.model.User;
 import spr.food.repository.AdminRepository;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public class AdminService {
     }
 
     // Get Admin by Username
-    public Optional<Admin> getAdminByUsername(String username) {
-        return adminRepository.findById(username);
-    }
+//    public Optional<Admin> getAdminByUsername(String username) {
+//        return adminRepository.findById(username);
+//    }
 
     // Get All Admins
     public List<Admin> getAllAdmins() {
@@ -44,6 +45,9 @@ public class AdminService {
         } else {
             throw new RuntimeException("Admin not found with username: " + username);
         }
+    }
+    public Admin getAdminByUsername(String email) {
+        return adminRepository.findByUsername(email);
     }
 
 }

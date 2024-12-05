@@ -47,19 +47,20 @@ public class AuthController {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
 
-        Optional<Admin> optionalAdmin = adminService.getAdminByUsername(username);
+//        Optional<Admin> optionalAdmin = adminService.getAdminByUsername(username);
+        Admin admin = adminService.getAdminByUsername(username);
+//        if (optionalAdmin.isPresent()) {
+////            Admin admin = optionalAdmin.get();
+//            if (admin.getPassword().equals(password)) {
+        if (admin != null && admin.getPassword().equals(password)) {
 
-        if (optionalAdmin.isPresent()) {
-            Admin admin = optionalAdmin.get();
-            if (admin.getPassword().equals(password)) {
                 // Store admin information in the session
-                // session.setAttribute("adminId", admin.getId());
+//                 session.setAttribute("adminId", admin.getId());
                 session.setAttribute("adminUsername", admin.getUsername());
                 session.setAttribute("role", "ADMIN");
 
                 return ResponseEntity.ok("Admin login successful for: " + username);
             }
-        }
         return ResponseEntity.status(401).body("Invalid username or password.");
     }
 
@@ -103,5 +104,20 @@ public ResponseEntity<User> getUserDetails(HttpSession session) {
     }
     return ResponseEntity.status(401).build(); // Unauthorized if session is invalid
 }
+    @GetMapping("/admin/details")
+    public ResponseEntity<Admin> getAdminDetails(HttpSession session) {
+        String username = (String) session.getAttribute("adminUsername");
+        String role = (String) session.getAttribute("role");
+
+        if (username != null) {
+            Admin admin = adminService.getAdminByUsername(username);
+            if (admin != null) {
+
+                return ResponseEntity.ok(admin);
+            }
+        }
+        return ResponseEntity.status(401).build(); // Unauthorized if session is invalid
+    }
+
 
 }

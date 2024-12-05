@@ -37,10 +37,10 @@ public class FoodDonationService {
     // Update Donation
     public FoodDonation updateDonation(Long id, FoodDonation updatedDonation) {
         return donationRepository.findById(id).map(donation -> {
-            donation.setDonorId(updatedDonation.getDonorId());
-            donation.setReceiverId(updatedDonation.getReceiverId());
             donation.setPostDate(updatedDonation.getPostDate());
-            donation.setClaimDate(updatedDonation.getClaimDate());
+            donation.setQuantity(updatedDonation.getQuantity());
+            donation.setAddress(updatedDonation.getAddress());
+            donation.setAlternateContact(updatedDonation.getAlternateContact());
             donation.setAvailabilityStatus(updatedDonation.isAvailabilityStatus());
             return donationRepository.save(donation);
         }).orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));
