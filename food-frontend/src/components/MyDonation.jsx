@@ -89,6 +89,8 @@ const MyDonations = () => {
                 <th>Address</th>
                 <th>Phone</th>
                 <th>Post Date</th>
+                <th>Reciver Id</th>
+                <th>Claim Date</th>
                 <th>Quantity</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -100,6 +102,8 @@ const MyDonations = () => {
                   <td>{donation.address}</td>
                   <td>{donation.alternateContact}</td>
                   <td>{donation.postDate}</td>
+                  <td>{donation.receiverId}</td>
+                  <td>{donation.claimDate}</td>
                   <td>{donation.quantity}</td>
                   <td>
                     {donation.availabilityStatus ? "Available" : "Not Available"}
