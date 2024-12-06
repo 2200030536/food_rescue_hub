@@ -3,11 +3,9 @@ package spr.food.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spr.food.model.Admin;
-import spr.food.model.User;
 import spr.food.repository.AdminRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdminService {

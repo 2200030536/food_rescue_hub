@@ -41,6 +41,7 @@ public class FoodDonationService {
             donation.setQuantity(updatedDonation.getQuantity());
             donation.setAddress(updatedDonation.getAddress());
             donation.setAlternateContact(updatedDonation.getAlternateContact());
+            donation.setClaimDate(updatedDonation.getClaimDate());
             donation.setAvailabilityStatus(updatedDonation.isAvailabilityStatus());
             return donationRepository.save(donation);
         }).orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));

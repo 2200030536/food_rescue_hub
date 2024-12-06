@@ -1,6 +1,5 @@
 package spr.food.controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -107,7 +106,7 @@ public ResponseEntity<User> getUserDetails(HttpSession session) {
     @GetMapping("/admin/details")
     public ResponseEntity<Admin> getAdminDetails(HttpSession session) {
         String username = (String) session.getAttribute("adminUsername");
-        String role = (String) session.getAttribute("role");
+        // String role = (String) session.getAttribute("role");
 
         if (username != null) {
             Admin admin = adminService.getAdminByUsername(username);

@@ -3,6 +3,7 @@ package spr.food.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import spr.food.model.Admin;
 import spr.food.service.AdminService;
 
@@ -25,7 +26,7 @@ public class AdminController {
     // Get an admin by username
     @GetMapping("/{username}")
     public ResponseEntity<Admin> getAdminByUsername(@PathVariable String username) {
-        return ResponseEntity.of(adminService.getAdminByUsername(username));
+        return ResponseEntity.ok(adminService.getAdminByUsername(username));
     }
 
     // Get all admins
@@ -46,4 +47,6 @@ public class AdminController {
         adminService.deleteAdmin(username);
         return ResponseEntity.noContent().build();
     }
+   
+
 }
