@@ -22,10 +22,13 @@ public class AdminController {
         return ResponseEntity.ok(adminService.createAdmin(admin));
     }
 
-    // Get an admin by username
+    // Get an admin by username  
+    //
+    //
+    // edit from of to ok
     @GetMapping("/{username}")
     public ResponseEntity<Admin> getAdminByUsername(@PathVariable String username) {
-        return ResponseEntity.of(adminService.getAdminByUsername(username));
+        return ResponseEntity.ok(adminService.getAdminByUsername(username));
     }
 
     // Get all admins

@@ -40,7 +40,15 @@ public class FoodDonationService {
             donation.setDonorId(updatedDonation.getDonorId());
             donation.setReceiverId(updatedDonation.getReceiverId());
             donation.setPostDate(updatedDonation.getPostDate());
+<<<<<<< Updated upstream
             donation.setClaimDate(updatedDonation.getClaimDate());
+=======
+            donation.setReceiverId(updatedDonation.getReceiverId());
+            donation.setClaimDate(updatedDonation.getClaimDate());
+            donation.setQuantity(updatedDonation.getQuantity());
+            donation.setAddress(updatedDonation.getAddress());
+            donation.setAlternateContact(updatedDonation.getAlternateContact());
+>>>>>>> Stashed changes
             donation.setAvailabilityStatus(updatedDonation.isAvailabilityStatus());
             return donationRepository.save(donation);
         }).orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));
