@@ -1,5 +1,6 @@
  import React from 'react'
- 
+ import './Footer.css'; // Custom CSS for animations
+
  export const Footer = () => {
    return (
      <div>

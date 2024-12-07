@@ -12,15 +12,17 @@ const HeroSection = () => {
         color: 'white',
       }}
     >
-      <h1 style={{ fontSize: '48px', marginBottom: '20px' }}>Food Waste Management System</h1>
-      <p style={{ fontSize: '24px', marginBottom: '30px' }}>
-        Let's create awareness to reduce food waste and save the environment.
+      <h1 style={{ fontSize: '48px', marginBottom: '20px', color :"red" }}>
+        {/* Food Waste Management System */}
+        </h1>
+      <p style={{ fontSize: '24px', marginBottom: '30px', color :"red" }}>
+        {/* Let's create awareness to reduce food waste and save the environment. */}
       </p>
       <div className="buttons">
         <a href="/about" className="btn" style={buttonStyle}>
           Learn More
         </a>
-        <a href="/user" className="btn" style={buttonStyle}>
+        <a href="/signup" className="btn" style={buttonStyle}>
           Get Involved
         </a>
       </div>

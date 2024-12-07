@@ -22,32 +22,32 @@ const Profile = () => {
     fetchUserDetails();
   }, [navigate]);
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await axios.post("/auth/logout");
-  //     navigate("/"); // Redirect to the homepage after logout
-  //   } catch (error) {
-  //     console.error("Logout failed", error);
-  //   }
-  // };
-
   return (
     <>
       <UserHeader />
       <div className="container mt-5">
-        <h2>Welcome to your Profile</h2>
-        {userDetails ? (
-          <div>
-            <p><strong>ID:</strong> {userDetails.id}</p>
-            <p><strong>Name:</strong> {userDetails.name}</p>
-            <p><strong>Email:</strong> {userDetails.email}</p>
+        <div className="card mx-auto shadow-lg" style={{ maxWidth: "600px" }}>
+          <div className="card-header bg-primary text-white text-center">
+            <h3>Your Profile</h3>
           </div>
-        ) : (
-          <p>Loading user details...</p>
-        )}
-        {/* <button onClick={handleLogout} className="btn btn-danger mt-3">
-          Logout
-        </button> */}
+          <div className="card-body">
+            {userDetails ? (
+              <div className="text-center">
+                <img
+                  src={`https://ui-avatars.com/api/?name=${userDetails.name}&background=random`}
+                  alt="User Avatar"
+                  className="rounded-circle mb-3"
+                  style={{ width: "100px", height: "100px" }}
+                />
+                <p><strong>ID:</strong> {userDetails.id}</p>
+                <p><strong>Name:</strong> {userDetails.name}</p>
+                <p><strong>Email:</strong> {userDetails.email}</p>
+              </div>
+            ) : (
+              <p className="text-center">Loading user details...</p>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );
