@@ -7,6 +7,7 @@ const AdminDashboard = () => {
     <>
     <AdminHeader/>
     <div>
+      <AdminProfile/>
       ADMIN login success
     </div>
     </>

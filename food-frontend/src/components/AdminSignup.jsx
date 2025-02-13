@@ -17,7 +17,7 @@ const AdminSignupPage = () => {
     e.preventDefault();
     try {
       // Send POST request to backend for admin signup
-      const response = await axios.post("http://localhost:8080/auth/admin/register", {
+      const response = await axios.post("http://localhost:8080/admins", {
         name,
         password,
       });

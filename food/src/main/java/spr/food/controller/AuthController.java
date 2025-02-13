@@ -11,7 +11,7 @@ import spr.food.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

@@ -27,16 +27,6 @@ import AdminDonationManagement from "./components/AdminDonationManagement";
 
 const App = () => {
 
-  // const location = useLocation();
-
-  // // Dynamic Header Selection Based on Route
-  // const renderHeader = () => {
-  //   if (location.pathname === "/profile" || location.pathname === "/about") {
-  //     return <UserHeaderHeader />; // General Header for public pages
-  //   }
-  //   return < Header />; // Specific header for login/signup
-  // };
-
 
 
   return (
