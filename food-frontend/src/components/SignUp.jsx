@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {  Link } from "react-router-dom";
+import Header from "./Header";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
@@ -37,6 +39,9 @@ const SignupPage = () => {
   };
 
   return (
+
+    <>
+    <Header/>
     <div className="container mt-5">
       <h2 className="text-center">Signup</h2>
       <form onSubmit={handleSignup}>
@@ -50,7 +55,7 @@ const SignupPage = () => {
             value={name}
             onChange={handleNameChange}
             required
-          />
+            />
         </div>
 
         <div className="mb-3">
@@ -63,7 +68,7 @@ const SignupPage = () => {
             value={email}
             onChange={handleEmailChange}
             required
-          />
+            />
         </div>
 
         <div className="mb-3">
@@ -76,7 +81,7 @@ const SignupPage = () => {
             value={contact}
             onChange={handleContactChange}
             required
-          />
+            />
         </div>
 
         <div className="mb-3">
@@ -89,7 +94,7 @@ const SignupPage = () => {
             value={password}
             onChange={handlePasswordChange}
             required
-          />
+            />
         </div>
 
         {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
@@ -97,7 +102,13 @@ const SignupPage = () => {
 
         <button type="submit" className="btn btn-primary w-100">Sign Up</button>
       </form>
+      <div className="mt-3">
+          <Link to="/login">User login</Link>
+        </div>
+      
     </div>
+    
+            </>
   );
 };
 

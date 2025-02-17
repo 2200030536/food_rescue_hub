@@ -3,25 +3,23 @@ import axios from "./api";
 import { listUserDonations, deleteDonation } from "../services/DonationService";
 import { useNavigate } from "react-router-dom";
 import UserHeader from "./UserHeader";
+import "./MyDonations.css"; // Custom CSS for styling and animations
 
 const MyDonations = () => {
-
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [donorId, setDonorId] = useState(null); // State to hold donorId
+  const [viewType, setViewType] = useState("table"); // Toggle between table and block view
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
         const response = await axios.get("/auth/user/details");
-        console.log("User details fetched:", response.data); // Debugging
-
         if (response.data && response.data.id) {
           setDonorId(response.data.id); // Set donorId
         } else {
-          console.error("User ID not found in response.");
           alert("Failed to fetch user ID. Please log in again.");
           navigate("/login");
         }
@@ -30,19 +28,17 @@ const MyDonations = () => {
         navigate("/login"); // Redirect to login if session is invalid
       }
     };
-
     fetchUserDetails();
   }, [navigate]);
 
   useEffect(() => {
     if (donorId) {
-      // Fetch donations only after donorId is set
       listUserDonations(donorId)
         .then((response) => {
           setDonations(response.data);
           setLoading(false);
         })
-        .catch((error) => {
+        .catch(() => {
           setError("Failed to fetch your donations. Please try again later.");
           setLoading(false);
         });
@@ -62,9 +58,8 @@ const MyDonations = () => {
             prevDonations.filter((donation) => donation.id !== id)
           );
         })
-        .catch((error) => {
+        .catch(() => {
           alert("Failed to delete donation. Please try again later.");
-          console.error(error);
         });
     }
   };
@@ -82,29 +77,74 @@ const MyDonations = () => {
       <UserHeader />
       <div className="container mt-4">
         <h2 className="text-center">My Donations</h2>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <button
+            className="btn btn-outline-primary"
+            onClick={() => setViewType(viewType === "table" ? "block" : "table")}
+          >
+            Switch to {viewType === "table" ? "Block View" : "Table View"}
+          </button>
+        </div>
         {donations.length > 0 ? (
-          <table className="table table-bordered table-striped">
-            <thead className="thead-dark">
-              <tr>
-                <th>Address</th>
-                <th>Phone</th>
-                <th>Post Date</th>
-                <th>Quantity</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+          viewType === "table" ? (
+            <table className="table table-bordered table-striped donation-table">
+              <thead className="thead-dark">
+                <tr>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Post Date</th>
+                  <th>Receiver Id</th>
+                  <th>Claim Date</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {donations.map((donation) => (
+                  <tr key={donation.id}>
+                    <td>{donation.address}</td>
+                    <td>{donation.alternateContact}</td>
+                    <td>{donation.postDate}</td>
+                    <td>{donation.receiverId}</td>
+                    <td>{donation.claimDate}</td>
+                    <td>{donation.quantity}</td>
+                    <td>
+                      {donation.availabilityStatus ? "Available" : "Not Available"}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-warning btn-sm mr-2"
+                        onClick={() => handleEdit(donation.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={() => handleDelete(donation.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="donation-blocks">
               {donations.map((donation) => (
-                <tr key={donation.id}>
-                  <td>{donation.address}</td>
-                  <td>{donation.alternateContact}</td>
-                  <td>{donation.postDate}</td>
-                  <td>{donation.quantity}</td>
-                  <td>
+                <div className="donation-card" key={donation.id}>
+                  <p><strong>Address:</strong> {donation.address}</p>
+                  <p><strong>Phone:</strong> {donation.alternateContact}</p>
+                  <p><strong>Post Date:</strong> {donation.postDate}</p>
+                  <p><strong>Receiver ID:</strong> {donation.receiverId}</p>
+                  <p><strong>Claim Date:</strong> {donation.claimDate}</p>
+                  <p><strong>Quantity:</strong> {donation.quantity}</p>
+                  <p>
+                    <strong>Status:</strong>{" "}
                     {donation.availabilityStatus ? "Available" : "Not Available"}
-                  </td>
-                  <td>
+                  </p>
+                  <div className="action-buttons">
                     <button
                       className="btn btn-warning btn-sm mr-2"
                       onClick={() => handleEdit(donation.id)}
@@ -117,11 +157,11 @@ const MyDonations = () => {
                     >
                       Delete
                     </button>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          )
         ) : (
           <div className="text-center">You have not posted any donations yet.</div>
         )}
