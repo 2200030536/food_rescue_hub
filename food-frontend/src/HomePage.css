@@ -15,6 +15,15 @@
   .animate__animated {
     animation-duration: 1.5s;
   }
+  .col-md-3{
+    color: #222;
+
+  }
+  
+  .mb-4{
+    color: #222;
+
+  }
   
   /* Footer */
   footer {

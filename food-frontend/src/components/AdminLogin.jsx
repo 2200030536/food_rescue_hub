@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "./api";
 import Header from "./Header";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState("");
+const AdminLoginPage = () => {
+  const [username, setEmail] = useState(""); // Renamed setUsername to setEmail for clarity
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -12,12 +12,13 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/auth/user/login", { email, password });
+      const response = await api.post("/auth/admin/login", { username, password });
       if (response.data) {
-        navigate("/profile", { state: { id: response.data.id } });
+        // Pass only relevant info (username, role) to the admin dashboard
+        navigate("/admin-dashboard", { state: { username: response.data.username, role: "ADMIN" } });
       }
     } catch (error) {
-      setErrorMessage("Invalid email or password.");
+      setErrorMessage("Invalid admin email or password.");
     }
   };
 
@@ -25,14 +26,14 @@ const LoginPage = () => {
     <>
       <Header />
       <div className="container mt-5">
-        <h2>Login</h2>
+        <h2>Admin Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label>Email</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setEmail(e.target.value)} // Changed to setEmail
               required
               className="form-control"
             />
@@ -52,15 +53,9 @@ const LoginPage = () => {
             Login
           </button>
         </form>
-        <div className="mt-3">
-          <Link to="/signup">User Signup</Link>
-        </div>
-        <div className="mt-3">
-          <Link to="/admin-login">Admin Login</Link>
-        </div>
       </div>
     </>
   );
 };
 
-export default LoginPage;
+export default AdminLoginPage;

@@ -3,6 +3,7 @@ import { listDonations } from '../services/DonationService';
 import { useNavigate } from 'react-router-dom';
 import axios from './api'; // Use the centralized axios instance
 import UserHeader from './UserHeader';
+import './ListFoodDonations.css'; // Custom CSS for animations
 import './ListFoodDonations.css'; // Custom CSS
 
 
@@ -13,6 +14,8 @@ const ListFoodDonations = () => {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [userDetails, setUserDetails] = useState(null);
+
+  const [viewMode, setViewMode] = useState('table'); // 'table' or 'card'
 
   const navigate = useNavigate();
 
@@ -132,6 +135,15 @@ const ListFoodDonations = () => {
             value={search}
             onChange={handleSearch}
           />
+          <button
+            className="btn btn-secondary"
+            onClick={() => setViewMode(viewMode === 'table' ? 'card' : 'table')}
+          >
+            {viewMode === 'table' ? 'Card View' : 'Table View'}
+          </button>
+        </div>
+        {viewMode === 'table' ? (
+          <table className="table table-bordered table-striped fade-in">
         </div>
         {filteredDonations.length > 0 ? (
           <table className="table table-bordered table-striped">
@@ -183,6 +195,40 @@ const ListFoodDonations = () => {
             </tbody>
           </table>
         ) : (
+          <div className="card-columns fade-in">
+            {filteredDonations.map((donation) => (
+              <div className="card" key={donation.id}>
+                <div className="card-body">
+                  <h5 className="card-title">Donor ID: {donation.donorId}</h5>
+                  <p className="card-text">Address: {donation.address}</p>
+                  <p className="card-text">Phone: {donation.alternateContact}</p>
+                  <p className="card-text">Post Date: {donation.postDate}</p>
+                  <p className="card-text">Quantity: {donation.quantity}</p>
+                  <p className="card-text">
+                    Status: {donation.availabilityStatus ? 'Available' : 'Not Available'}
+                  </p>
+                  <div>
+                    {donation.availabilityStatus ? (
+                      <button
+                        className="btn btn-success"
+                        onClick={() => claimDonation(donation)}
+                      >
+                        Claim
+                      </button>
+                    ) : donation.receiverId === userDetails?.id ? (
+                      <button
+                        className="btn btn-warning"
+                        onClick={() => unclaimDonation(donation)}
+                      >
+                        Unclaim
+                      </button>
+                    ) : (
+                      <span className="text-muted">Claimed</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
           <div className="text-center">
             No donations found matching your search criteria.
           </div>

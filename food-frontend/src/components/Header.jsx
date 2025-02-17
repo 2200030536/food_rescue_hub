@@ -15,11 +15,11 @@ const Header = () => {
             About
           </Link>
         </li>
-        {/* <li style={{ display: 'inline-block', margin: '0 15px' }}>
-          <Link to="/donations" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
-            Donation Post
+        <li style={{ display: 'inline-block', margin: '0 15px' }}>
+          <Link to="/signup" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
+            Sign Up
           </Link>
-        </li> */}
+        </li>
         <li style={{ display: 'inline-block', margin: '0 15px' }}>
           <Link to="/login" style={{ textDecoration: 'none', color: 'white', fontSize: '18px' }}>
             Login
