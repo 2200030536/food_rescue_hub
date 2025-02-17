@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from './api'; // Use the centralized axios instance
 import UserHeader from './UserHeader';
 import './ListFoodDonations.css'; // Custom CSS for animations
+import './ListFoodDonations.css'; // Custom CSS
+
 
 const ListFoodDonations = () => {
   const [donations, setDonations] = useState([]);
@@ -12,6 +14,7 @@ const ListFoodDonations = () => {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [userDetails, setUserDetails] = useState(null);
+
   const [viewMode, setViewMode] = useState('table'); // 'table' or 'card'
 
   const navigate = useNavigate();
@@ -141,6 +144,9 @@ const ListFoodDonations = () => {
         </div>
         {viewMode === 'table' ? (
           <table className="table table-bordered table-striped fade-in">
+        </div>
+        {filteredDonations.length > 0 ? (
+          <table className="table table-bordered table-striped">
             <thead className="thead-dark">
               <tr>
                 <th>DONOR ID</th>
@@ -223,6 +229,8 @@ const ListFoodDonations = () => {
                 </div>
               </div>
             ))}
+          <div className="text-center">
+            No donations found matching your search criteria.
           </div>
         )}
       </div>

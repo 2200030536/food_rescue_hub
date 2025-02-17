@@ -1,6 +1,5 @@
 package spr.food.controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -103,5 +102,23 @@ public ResponseEntity<User> getUserDetails(HttpSession session) {
     }
     return ResponseEntity.status(401).build(); // Unauthorized if session is invalid
 }
+<<<<<<< Updated upstream
+=======
+    @GetMapping("/admin/details")
+    public ResponseEntity<Admin> getAdminDetails(HttpSession session) {
+        String username = (String) session.getAttribute("adminUsername");
+        // String role = (String) session.getAttribute("role");
+
+        if (username != null) {
+            Admin admin = adminService.getAdminByUsername(username);
+            if (admin != null) {
+
+                return ResponseEntity.ok(admin);
+            }
+        }
+        return ResponseEntity.status(401).build(); // Unauthorized if session is invalid
+    }
+
+>>>>>>> Stashed changes
 
 }

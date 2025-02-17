@@ -142,6 +142,7 @@ const MyDonations = () => {
                   <p><strong>Quantity:</strong> {donation.quantity}</p>
                   <p>
                     <strong>Status:</strong>{" "}
+
                     {donation.availabilityStatus ? "Available" : "Not Available"}
                   </p>
                   <div className="action-buttons">
