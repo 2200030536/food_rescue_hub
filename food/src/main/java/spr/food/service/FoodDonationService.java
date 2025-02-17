@@ -37,18 +37,11 @@ public class FoodDonationService {
     // Update Donation
     public FoodDonation updateDonation(Long id, FoodDonation updatedDonation) {
         return donationRepository.findById(id).map(donation -> {
-            donation.setDonorId(updatedDonation.getDonorId());
-            donation.setReceiverId(updatedDonation.getReceiverId());
             donation.setPostDate(updatedDonation.getPostDate());
-<<<<<<< Updated upstream
-            donation.setClaimDate(updatedDonation.getClaimDate());
-=======
-            donation.setReceiverId(updatedDonation.getReceiverId());
-            donation.setClaimDate(updatedDonation.getClaimDate());
             donation.setQuantity(updatedDonation.getQuantity());
             donation.setAddress(updatedDonation.getAddress());
             donation.setAlternateContact(updatedDonation.getAlternateContact());
->>>>>>> Stashed changes
+            donation.setClaimDate(updatedDonation.getClaimDate());
             donation.setAvailabilityStatus(updatedDonation.isAvailabilityStatus());
             return donationRepository.save(donation);
         }).orElseThrow(() -> new RuntimeException("Donation not found with id: " + id));

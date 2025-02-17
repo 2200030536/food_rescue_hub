@@ -9,6 +9,9 @@ import spr.food.model.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, String> {
 	
+	Admin findByUsername(String username);
+
 	
+ 
 
 }

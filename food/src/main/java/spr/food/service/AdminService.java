@@ -19,9 +19,9 @@ public class AdminService {
     }
 
     // Get Admin by Username
-    public Optional<Admin> getAdminByUsername(String username) {
-        return adminRepository.findById(username);
-    }
+//    public Optional<Admin> getAdminByUsername(String username) {
+//        return adminRepository.findById(username);
+//    }
 
     // Get All Admins
     public List<Admin> getAllAdmins() {
@@ -43,6 +43,9 @@ public class AdminService {
         } else {
             throw new RuntimeException("Admin not found with username: " + username);
         }
+    }
+    public Admin getAdminByUsername(String email) {
+        return adminRepository.findByUsername(email);
     }
 
 }
