@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from './api'; // Use the centralized axios instance
 import UserHeader from './UserHeader';
 import './ListFoodDonations.css'; // Custom CSS for animations
-import './ListFoodDonations.css'; // Custom CSS
-
 
 const ListFoodDonations = () => {
   const [donations, setDonations] = useState([]);
@@ -14,7 +12,6 @@ const ListFoodDonations = () => {
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [userDetails, setUserDetails] = useState(null);
-
   const [viewMode, setViewMode] = useState('table'); // 'table' or 'card'
 
   const navigate = useNavigate();
@@ -29,7 +26,6 @@ const ListFoodDonations = () => {
         navigate('/login'); // Redirect to login if session is invalid
       }
     };
-
     fetchUserDetails();
   }, [navigate]);
 
@@ -62,14 +58,12 @@ const ListFoodDonations = () => {
       alert('Please log in to claim a donation.');
       return;
     }
-
     const updatedDonation = {
       ...donation,
       receiverId: userDetails.id,
       claimDate: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
       availabilityStatus: false, // Mark as claimed
     };
-
     try {
       await axios.put(`/donations/${donation.id}`, updatedDonation);
       alert('Donation claimed successfully!');
@@ -87,14 +81,12 @@ const ListFoodDonations = () => {
       alert('Please log in to unclaim a donation.');
       return;
     }
-
     const updatedDonation = {
       ...donation,
       receiverId: null,
       claimDate: null,
       availabilityStatus: true, // Mark as unclaimed
     };
-
     try {
       await axios.put(`/donations/${donation.id}`, updatedDonation);
       alert('Donation unclaimed successfully!');
@@ -114,7 +106,6 @@ const ListFoodDonations = () => {
   if (loading) {
     return <div className="text-center mt-5">Loading donations...</div>;
   }
-
   if (error) {
     return <div className="text-center mt-5 text-danger">{error}</div>;
   }
@@ -144,9 +135,6 @@ const ListFoodDonations = () => {
         </div>
         {viewMode === 'table' ? (
           <table className="table table-bordered table-striped fade-in">
-        </div>
-        {filteredDonations.length > 0 ? (
-          <table className="table table-bordered table-striped">
             <thead className="thead-dark">
               <tr>
                 <th>DONOR ID</th>
@@ -173,17 +161,11 @@ const ListFoodDonations = () => {
                   <td>{donation.availabilityStatus ? 'Available' : 'Not Available'}</td>
                   <td>
                     {donation.availabilityStatus ? (
-                      <button
-                        className="btn btn-success"
-                        onClick={() => claimDonation(donation)}
-                      >
+                      <button className="btn btn-success" onClick={() => claimDonation(donation)}>
                         Claim
                       </button>
                     ) : donation.receiverId === userDetails?.id ? (
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => unclaimDonation(donation)}
-                      >
+                      <button className="btn btn-warning" onClick={() => unclaimDonation(donation)}>
                         Unclaim
                       </button>
                     ) : (
@@ -201,36 +183,9 @@ const ListFoodDonations = () => {
                 <div className="card-body">
                   <h5 className="card-title">Donor ID: {donation.donorId}</h5>
                   <p className="card-text">Address: {donation.address}</p>
-                  <p className="card-text">Phone: {donation.alternateContact}</p>
-                  <p className="card-text">Post Date: {donation.postDate}</p>
-                  <p className="card-text">Quantity: {donation.quantity}</p>
-                  <p className="card-text">
-                    Status: {donation.availabilityStatus ? 'Available' : 'Not Available'}
-                  </p>
-                  <div>
-                    {donation.availabilityStatus ? (
-                      <button
-                        className="btn btn-success"
-                        onClick={() => claimDonation(donation)}
-                      >
-                        Claim
-                      </button>
-                    ) : donation.receiverId === userDetails?.id ? (
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => unclaimDonation(donation)}
-                      >
-                        Unclaim
-                      </button>
-                    ) : (
-                      <span className="text-muted">Claimed</span>
-                    )}
-                  </div>
                 </div>
               </div>
             ))}
-          <div className="text-center">
-            No donations found matching your search criteria.
           </div>
         )}
       </div>
