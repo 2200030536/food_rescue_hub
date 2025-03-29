@@ -5,7 +5,6 @@ import AdminProfile from './AdminProfile';
 const AdminDashboard = () => {
   return (
     <>
-    <AdminHeader/>
     <div>
       <AdminProfile/>
       ADMIN login success

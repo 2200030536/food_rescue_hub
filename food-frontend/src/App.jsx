@@ -22,7 +22,9 @@ import AdminDonationList from "./components/AdminDonationList";
 import AdminUserManagement from "./components/AdminUserManagement";
 import AdminUserEdit from "./components/AdminUserEdit";
 import AdminDonationManagement from "./components/AdminDonationManagement";
+import ShoppingDetails from "./components/ShoppingDetails";
 
+// Add this route
 
 
 const App = () => {
@@ -55,6 +57,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/user" element={<AwarenessSection />} />
           <Route path="/logout" element={<Logout />} />
+
+          <Route path="/shopping-details" element={<ShoppingDetails />} />
+
 
         </Routes>
         <Footer />
