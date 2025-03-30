@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "./api"; // Use the centralized axios instance
-import UserHeader from "./UserHeader";
+import RegUserSideNav from "./regUserSideNav.jsx";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Profile = () => {
 
   return (
     <>
-      <UserHeader />
+      <RegUserSideNav />
       <div className="container mt-5">
         <div className="card mx-auto shadow-lg" style={{ maxWidth: "600px" }}>
           <div className="card-header bg-primary text-white text-center">

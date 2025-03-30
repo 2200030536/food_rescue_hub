@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "./api";
-import UserHeader from "./UserHeader";
-
+import RegUserSideNav from "./regUserSideNav.jsx";
 import { useNavigate } from "react-router-dom";
 
 const ShoppingDetails = () => {
@@ -66,10 +65,10 @@ const ShoppingDetails = () => {
     const currentDate = new Date();
     const timeDifference = expiryDate - currentDate;
     const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-  
+
     // Update the newShoppingData object with the calculated daysRemaining
     const updatedShoppingData = { ...newShoppingData, daysRemaining };
-  
+
     axios
       .post("/shopping-data", updatedShoppingData)
       .then(() => {
@@ -104,120 +103,40 @@ const ShoppingDetails = () => {
 
   return (
     <>
-    <UserHeader />
+      <RegUserSideNav />
 
-    <div className="container mt-4">
-      <h2 className="text-center">Shopping Details</h2>
-      <table className="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>Purchase Date</th>
-            <th>Expiry Date</th>
-            <th>Days Remaining</th>
-            <th>Status</th>
-            <th>Category</th>
-            <th>Calories</th>
-          </tr>
-        </thead>
-        <tbody>
-  {shoppingData.map((data) => (
-    <tr key={data.id}>
-      <td>{data.itemName}</td>
-      <td>{data.itemQuantity}</td>
-      <td>{new Date(data.purchaseDate).toLocaleDateString()}</td>
-      <td>{new Date(data.expiryDate).toLocaleDateString()}</td>
-      <td>{data.daysRemaining < 0 ? 0 : data.daysRemaining}</td>
-      <td>{data.status ? "Available" : "Expired"}</td>
-      <td>{data.category}</td>
-      <td>{data.cal}</td>
-    </tr>
-  ))}
-</tbody>
-      </table>
+      <div className="container mt-4">
+        <h2 className="text-center">Shopping Details</h2>
+        <table className="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Purchase Date</th>
+              <th>Expiry Date</th>
+              <th>Days Remaining</th>
+              <th>Status</th>
+              <th>Category</th>
+              <th>Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shoppingData.map((data) => (
+              <tr key={data.id}>
+                <td>{data.itemName}</td>
+                <td>{data.itemQuantity}</td>
+                <td>{new Date(data.purchaseDate).toLocaleDateString()}</td>
+                <td>{new Date(data.expiryDate).toLocaleDateString()}</td>
+                <td>{data.daysRemaining < 0 ? 0 : data.daysRemaining}</td>
+                <td>{data.status ? "Available" : "Expired"}</td>
+                <td>{data.category}</td>
+                <td>{data.cal}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      <h3 className="mt-5">Post New Shopping Data</h3>
-      <form>
-        <div className="form-group">
-          <label>User ID</label>
-          <input
-            type="text"
-            className="form-control"
-            name="userId"
-            value={userId}
-            readOnly
-            />
-        </div>
-        <div className="form-group">
-          <label>Item Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="itemName"
-            value={newShoppingData.itemName}
-            onChange={handleInputChange}
-            />
-        </div>
-        <div className="form-group">
-          <label>Quantity</label>
-          <input
-            type="text"
-            className="form-control"
-            name="itemQuantity"
-            value={newShoppingData.itemQuantity}
-            onChange={handleInputChange}
-            />
-        </div>
-        <div className="form-group">
-          <label>Purchase Date</label>
-          <input
-            type="date"
-            className="form-control"
-            name="purchaseDate"
-            value={newShoppingData.purchaseDate}
-            onChange={handleInputChange}
-            />
-        </div>
-        <div className="form-group">
-          <label>Expiry Date</label>
-          <input
-            type="date"
-            className="form-control"
-            name="expiryDate"
-            value={newShoppingData.expiryDate}
-            onChange={handleInputChange}
-            />
-        </div>
-        <div className="form-group">
-          <label>Category</label>
-          <input
-            type="text"
-            className="form-control"
-            name="category"
-            value={newShoppingData.category}
-            onChange={handleInputChange}
-            />
-        </div>
-        <div className="form-group">
-          <label>Calories</label>
-          <input
-            type="number"
-            className="form-control"
-            name="cal"
-            value={newShoppingData.cal}
-            onChange={handleInputChange}
-            />
-        </div>
-        <button
-          type="button"
-          className="btn btn-primary mt-3"
-          onClick={handlePostShoppingData}
-          >
-          Post Shopping Data
-        </button>
-      </form>
-    </div>
+      </div>
     </>
   );
 };

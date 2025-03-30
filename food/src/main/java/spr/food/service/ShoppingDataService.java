@@ -24,6 +24,10 @@ public class ShoppingDataService {
         return shoppingDataRepository.findById(id);
     }
 
+    public List<ShoppingData> getAllShoppingData() {
+        return shoppingDataRepository.findAll();
+    }
+
     // Get Shopping Data by User ID
     public List<ShoppingData> getShoppingDataByUserId(Long userId) {
         return shoppingDataRepository.findByUserId(userId);

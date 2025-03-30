@@ -23,6 +23,8 @@ import AdminUserManagement from "./components/AdminUserManagement";
 import AdminUserEdit from "./components/AdminUserEdit";
 import AdminDonationManagement from "./components/AdminDonationManagement";
 import ShoppingDetails from "./components/ShoppingDetails";
+import HomePage from "./components/HomePage";
+import AddItems from "./components/AddItems";
 
 // Add this route
 
@@ -58,9 +60,10 @@ const App = () => {
           <Route path="/user" element={<AwarenessSection />} />
           <Route path="/logout" element={<Logout />} />
 
+
           <Route path="/shopping-details" element={<ShoppingDetails />} />
-
-
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/additems" element={<AddItems />} />
         </Routes>
         <Footer />
       </BrowserRouter>

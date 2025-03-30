@@ -14,7 +14,7 @@ const LoginPage = () => {
     try {
       const response = await api.post("/auth/user/login", { email, password });
       if (response.data) {
-        navigate("/profile", { state: { id: response.data.id } });
+        navigate("/homepage", { state: { id: response.data.id } });
       }
     } catch (error) {
       setErrorMessage("Invalid email or password.");

@@ -23,6 +23,13 @@ public class ShoppingDataController {
         return ResponseEntity.ok(shoppingDataService.createShoppingData(shoppingData));
     }
 
+    // Get all shopping data entries
+    @GetMapping
+    public ResponseEntity<List<ShoppingData>> getAllShoppingData() {
+        List<ShoppingData> shoppingDataList = shoppingDataService.getAllShoppingData();
+        return ResponseEntity.ok(shoppingDataList);
+    }
+
     // Get all shopping data entries for a specific userId
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ShoppingData>> getShoppingDataByUserId(@PathVariable Long userId) {
@@ -35,7 +42,7 @@ public class ShoppingDataController {
     public ResponseEntity<ShoppingData> getShoppingDataById(@PathVariable Long id) {
         Optional<ShoppingData> shoppingData = shoppingDataService.getShoppingDataById(id);
         return shoppingData.map(ResponseEntity::ok)
-                           .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Update a shopping data entry by userId and shoppingDataId
