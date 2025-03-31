@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion"; // Install using `npm install framer-motion`
 import { FaHome, FaUser, FaDonate, FaSignOutAlt } from "react-icons/fa";
 
 const UserHeader = () => {
@@ -7,24 +8,21 @@ const UserHeader = () => {
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
-  const handleSidebarClick = (e) => {
-    // Prevent the sidebar toggle when clicking on links
-    if (e.target.tagName !== "A") {
-      toggleSidebar();
-    }
-  };
-
   return (
     <>
       {/* Navbar */}
-      <nav
+      <motion.nav
+        className="navbar"
+        initial={{ y: -50 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#4CAF50",
           color: "white",
-          padding: '0em 0',
+          padding: "0.5em 1em",
           position: "fixed",
           top: 0,
           width: "100%",
@@ -32,7 +30,7 @@ const UserHeader = () => {
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <button
+        <motion.button
           onClick={toggleSidebar}
           style={{
             background: "none",
@@ -41,49 +39,62 @@ const UserHeader = () => {
             fontSize: "18px",
             cursor: "pointer",
             padding: "0.5em",
-            transition: "transform 0.3s ease",
-            transform: isSidebarOpen ? "rotate(90deg)" : "rotate(0)",
           }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           ☰
-        </button>
-        <div style={{ fontSize: "20px", fontWeight: "bold" }}>
-          Food Waste Management
-        </div>
-
-        <Link
-          to="/profile"
-          style={{
-            textDecoration: "none",
-            color: "white",
-            fontSize: "18px",
-            padding: "0.5em 1em",
-            border: "1px solid white",
-            borderRadius: "5px",
-          }}
+        </motion.button>
+        <motion.div
+          style={{ fontSize: "20px", fontWeight: "bold" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
         >
-          Profile
-        </Link>
-      </nav>
+          Food Waste Management
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Link
+            to="/profile"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontSize: "18px",
+              padding: "0.5em 1em",
+              border: "1px solid white",
+              borderRadius: "5px",
+            }}
+          >
+            Profile
+          </Link>
+        </motion.div>
+      </motion.nav>
 
       {/* Sidebar */}
-      <div
+      <motion.div
+        className="sidebar"
+        initial={{ width: isSidebarOpen ? "50px" : "250px" }}
+        animate={{ width: isSidebarOpen ? "250px" : "50px" }}
+        transition={{ duration: 0.5 }}
         style={{
           position: "fixed",
-          top: "2em", // Push sidebar content below the navbar
+          top: "3.5em", // Push sidebar content below the navbar
           left: 0,
-          width: isSidebarOpen ? "250px" : "50px", // Minimal size when closed
-          height: "calc(100vh - 4em)",
+          height: "calc(100vh - 3.5em)",
           backgroundColor: "#4CAF50",
           color: "white",
-          transition: "width 0.5s ease",
           overflow: "hidden",
           zIndex: 1000,
         }}
-        onClick={handleSidebarClick} // Click event to toggle the sidebar
       >
         <ul style={{ listStyle: "none", padding: "1em 0", margin: 0 }}>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaHome
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -102,8 +113,11 @@ const UserHeader = () => {
                 My Donations
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaUser
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -122,8 +136,11 @@ const UserHeader = () => {
                 Profile
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaDonate
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -142,8 +159,11 @@ const UserHeader = () => {
                 All Donation Posts
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaSignOutAlt
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -162,9 +182,9 @@ const UserHeader = () => {
                 Logout
               </Link>
             )}
-          </li>
+          </motion.li>
         </ul>
-      </div>
+      </motion.div>
     </>
   );
 };

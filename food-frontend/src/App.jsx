@@ -25,6 +25,7 @@ import AdminDonationManagement from "./components/AdminDonationManagement";
 import ShoppingDetails from "./components/ShoppingDetails";
 import HomePage from "./components/HomePage";
 import AddItems from "./components/AddItems";
+import Recipes from "./components/Recipes";
 
 // Add this route
 
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/shopping-details" element={<ShoppingDetails />} />
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/additems" element={<AddItems />} />
+          <Route path="/make-recipes" element={<Recipes />} />
         </Routes>
         <Footer />
       </BrowserRouter>

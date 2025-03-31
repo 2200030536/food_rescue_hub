@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion"; // Install using `npm install framer-motion`
 import api from "./api";
+import "./LoginPage.css"; // Custom CSS for styling
 import Header from "./Header";
 
 const LoginPage = () => {
@@ -23,43 +25,75 @@ const LoginPage = () => {
 
   return (
     <>
-      <Header />
-      <div className="container mt-5">
-        <h2>Login</h2>
+    <Header/>
+    <motion.div
+      className="login-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      >
+      <motion.div
+        className="login-card"
+        initial={{ y: -50 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100 }}
+        >
+        <h2 className="login-title">Welcome Back</h2>
+        <p className="login-subtitle">Please login to continue</p>
         <form onSubmit={handleLogin}>
-          <div className="mb-3">
+          <div className="form-group">
             <label>Email</label>
-            <input
+            <motion.input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               className="form-control"
-            />
+              whileFocus={{ scale: 1.05 }}
+              />
           </div>
-          <div className="mb-3">
+          <div className="form-group">
             <label>Password</label>
-            <input
+            <motion.input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               className="form-control"
-            />
+              whileFocus={{ scale: 1.05 }}
+              />
           </div>
-          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-          <button type="submit" className="btn btn-primary w-100">
+          {errorMessage && (
+            <motion.div
+            className="alert alert-danger"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            >
+              {errorMessage}
+            </motion.div>
+          )}
+          <motion.button
+            type="submit"
+            className="btn btn-primary w-100"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            >
             Login
-          </button>
+          </motion.button>
         </form>
-        <div className="mt-3">
-          <Link to="/signup">User Signup</Link>
+        <div className="links mt-3">
+          <Link to="/signup" className="link">
+            User Signup
+          </Link>
+          <Link to="/admin-login" className="link">
+            Admin Login
+          </Link>
         </div>
-        <div className="mt-3">
-          <Link to="/admin-login">Admin Login</Link>
-        </div>
-      </div>
-    </>
+      </motion.div>
+    </motion.div>
+            </>
   );
 };
 

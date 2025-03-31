@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion"; // Install using `npm install framer-motion`
 import { FaPlus, FaList, FaUtensils, FaUser, FaSignOutAlt } from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const RegUserSideNav = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -11,21 +11,24 @@ const RegUserSideNav = () => {
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <div
+      <motion.div
+        className="sidebar"
+        initial={{ width: isSidebarOpen ? "50px" : "250px" }}
+        animate={{ width: isSidebarOpen ? "250px" : "50px" }}
+        transition={{ duration: 0.5 }}
         style={{
           position: "fixed",
           top: 0,
           left: 0,
-          width: isSidebarOpen ? "250px" : "50px",
           height: "100vh",
           backgroundColor: "#4CAF50",
           color: "white",
-          transition: "width 0.5s ease",
           overflow: "hidden",
           zIndex: 1000,
+          boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <button
+        <motion.button
           onClick={toggleSidebar}
           style={{
             background: "none",
@@ -37,11 +40,16 @@ const RegUserSideNav = () => {
             width: "100%",
             textAlign: "left",
           }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
         >
           ☰
-        </button>
+        </motion.button>
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaPlus
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -60,8 +68,11 @@ const RegUserSideNav = () => {
                 Add Item
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaList
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -80,8 +91,11 @@ const RegUserSideNav = () => {
                 See List
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaUtensils
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -100,8 +114,11 @@ const RegUserSideNav = () => {
                 Make Recipes
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center", marginTop: "auto" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center", marginTop: "auto" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaUser
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -120,8 +137,11 @@ const RegUserSideNav = () => {
                 Profile
               </Link>
             )}
-          </li>
-          <li style={{ padding: "1em", display: "flex", alignItems: "center" }}>
+          </motion.li>
+          <motion.li
+            style={{ padding: "1em", display: "flex", alignItems: "center" }}
+            whileHover={{ scale: 1.05 }}
+          >
             <FaSignOutAlt
               style={{
                 marginRight: isSidebarOpen ? "10px" : "0",
@@ -140,9 +160,9 @@ const RegUserSideNav = () => {
                 Log Out
               </Link>
             )}
-          </li>
+          </motion.li>
         </ul>
-      </div>
+      </motion.div>
 
       {/* Main Content */}
       <div
@@ -153,8 +173,20 @@ const RegUserSideNav = () => {
           width: "100%",
         }}
       >
-        <h1>Welcome to the User Dashboard</h1>
-        <p>Select an option from the sidebar to get started.</p>
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          Welcome to the User Dashboard
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+        >
+          Select an option from the sidebar to get started.
+        </motion.p>
       </div>
     </div>
   );

@@ -67,7 +67,7 @@ const AddItems = () => {
         const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
 
         // Update the newShoppingData object with the calculated daysRemaining
-        const updatedShoppingData = { ...newShoppingData, daysRemaining };
+        const updatedShoppingData = { ...newShoppingData, daysRemaining,userId };
 
         axios
             .post("/shopping-data", updatedShoppingData)
@@ -160,13 +160,17 @@ const AddItems = () => {
                     </div>
                     <div className="form-group">
                         <label>Category</label>
-                        <input
-                            type="text"
+                        <select
                             className="form-control"
                             name="category"
                             value={newShoppingData.category}
                             onChange={handleInputChange}
-                        />
+                        >
+                            <option value="">Select Category</option>
+                            <option value="Food">Food</option>
+                            <option value="Medicine">Medicine</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     <div className="form-group">
                         <label>Calories</label>

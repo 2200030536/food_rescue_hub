@@ -1,15 +1,15 @@
-body {
+/* body {
     background: linear-gradient(135deg, #e06a6e, #8bd19b, #7998d4);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
-  }
-  
+  } */
+/*   
   @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  
+   */
   .page-title {
     color: #4a90e2;
     font-family: 'Arial', sans-serif;
