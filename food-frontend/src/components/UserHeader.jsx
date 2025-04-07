@@ -114,7 +114,7 @@ const UserHeader = () => {
               </Link>
             )}
           </motion.li>
-          <motion.li
+          {/* <motion.li
             style={{ padding: "1em", display: "flex", alignItems: "center" }}
             whileHover={{ scale: 1.05 }}
           >
@@ -136,7 +136,7 @@ const UserHeader = () => {
                 Profile
               </Link>
             )}
-          </motion.li>
+          </motion.li> */}
           <motion.li
             style={{ padding: "1em", display: "flex", alignItems: "center" }}
             whileHover={{ scale: 1.05 }}

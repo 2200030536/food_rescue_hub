@@ -26,6 +26,7 @@ import ShoppingDetails from "./components/ShoppingDetails";
 import HomePage from "./components/HomePage";
 import AddItems from "./components/AddItems";
 import Recipes from "./components/Recipes";
+import Dashboard from "./components/Dashboard";
 
 // Add this route
 
@@ -64,8 +65,10 @@ const App = () => {
 
           <Route path="/shopping-details" element={<ShoppingDetails />} />
           <Route path="/homepage" element={<HomePage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/additems" element={<AddItems />} />
           <Route path="/make-recipes" element={<Recipes />} />
+
         </Routes>
         <Footer />
       </BrowserRouter>
